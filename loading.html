@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>下载更新包...</title>
+  <style>
+    html,
+    body {
+      margin: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, .3);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .dialog {
+      position: absolute;
+      width: 80%;
+      min-height: 100px;
+      background-color: #fff;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 20px;
+      box-sizing: border-box;
+    }
+
+    .progress {
+      width: 100%;
+      height: 10px;
+      background-color: #eee;
+      box-shadow: inset 0 2px 4px rgba(0, 0, 0, .12), inset 0 0 6px rgba(0, 0, 0, .04)
+    }
+
+    .progress-inner {
+      width: 0;
+      height: 100%;
+      background-color: rgb(55, 202, 50);
+      transition: all .6s;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="dialog">
+    <div class="progress">
+      <div class="progress-inner" id="progress-inner"></div>
+    </div>
+  </div>
+</body>
+<script>
+  let progress = document.querySelector('.progress-inner')
+  require('electron').ipcRenderer.on('progress', function (event, msg) {
+    progress.style.width = msg + '%'
+    console.log(msg);
+  })
+</script>
+
+</html>

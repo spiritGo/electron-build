@@ -1,0 +1,22 @@
+{
+  "name": "mtbesewq",
+  "version": "3.6.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "electron-packager . app --win --out ../app --arch=ia32 --electron-version 9.0.2 --overwrite --ignore=node_modules --icon=favicon.ico"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^10.1.5",
+    "electron-packager": "^15.1.0",
+    "electron-winstaller": "^4.0.1"
+  },
+  "dependencies": {
+    "electron-updater": "^4.3.5",
+    "request": "^2.88.2"
+  }
+}
