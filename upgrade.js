@@ -62,15 +62,17 @@ function downloadFile() {
 }
 
 function execDownload(url, loadingInstanse) {
-  let dirname = path.dirname(app.getAppPath())
+  // let dirname = path.dirname(app.getAppPath())
+  let dirname = require('os').tmpdir()
   let total_bytes = 0
   let received_bytes = 0
 
   http.get(url, function (res) {
     total_bytes = res.headers['content-length']
-    let uri = decodeURI(res.req.path)
-    let filename = uri.split('/').pop()
-    let out = path.join(dirname, filename)
+    // let uri = decodeURI(res.req.path)
+    // let filename = uri.split('/').pop()
+    // let out = path.join(dirname, filename)
+    let out = path.resolve(dirname, 'qmteacher.exe')
     let percent = 0
 
     res.pipe(fs.createWriteStream(out))
@@ -83,10 +85,11 @@ function execDownload(url, loadingInstanse) {
 
     res.on('end', function () {
       let cmd = `\"${out}\" /sp- /silent`
-      cp.exec(cmd)
       setTimeout(function () {
-        app.quit()
-      }, 1000)
+        loadingInstanse.close()
+        cp.exec(cmd)
+        setTimeout(app.quit, 1000)
+      }, 1500)
     })
   })
 }
