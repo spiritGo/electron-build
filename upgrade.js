@@ -87,9 +87,8 @@ function execDownload(url, loadingInstanse) {
       let cmd = `\"${out}\" /sp- /silent`
       setTimeout(function () {
         loadingInstanse.close()
-        cp.exec(cmd)
-        setTimeout(app.quit, 1000)
-      }, 1500)
+        cp.exec(cmd).on('close', app.quit)
+      }, 3000)
     })
   })
 }
